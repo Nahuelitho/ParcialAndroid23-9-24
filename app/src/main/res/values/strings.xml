@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ParcialAndroid23-09-24</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">App Parcial Autos T3</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_listar">Listar</string>
+    <string name="menu_cargar">Cargar</string>
+    <string name="menu_salir">Salir</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Para salir presione nuevamente el boton salir del menu</string>
+</resources>
