@@ -38,10 +38,8 @@ public class CargarViewModel extends AndroidViewModel {
         }
         Auto autoCeroKM = new Auto(patente, marca, modelo, precio);
         MainActivity.autos.add(autoCeroKM);
-        getmErrorMsj().setValue("Auto guardado con éxito");
+        getmErrorMsj().setValue("Auto guardado con exito.");
 
-        ListarViewModel listarViewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(ListarViewModel.class);
-        listarViewModel.imprimirLista();
     }
 
     public boolean verificarPatente(String patente) {

@@ -39,51 +39,48 @@ public class CargarFragment extends Fragment {
         cargarViewModel = new ViewModelProvider(requireActivity()).get(CargarViewModel.class);
 
 
-        cargarViewModel.getmErrorMsj().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+
+        binding.btAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {String patente = binding.etPatente.getText().toString();
+                String marca = binding.etMarca.getText().toString();
+                String modelo = binding.etModelo.getText().toString();
+                String precioString = binding.etPrecio.getText().toString();
+                double precio = Double.parseDouble(precioString);
+                cargarViewModel.cargarAuto(patente, marca, modelo, precio);
+            }
+        });
+        /*cargarViewModel.getmErrorMsj().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String message) {
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
-        });
-
-        binding.btAgregar.setOnClickListener(new View.OnClickListener() {
+        });*/
+        cargarViewModel.getmErrorMsj().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onClick(View v) {
-                agregarAuto();
+            public void onChanged(String msj) {
+                binding.tvMensaje.setText(msj);
+
+                // Limpiar los campos solo si el auto fue agregado con éxito
+                if (msj.equals("Auto guardado con exito.")) {
+                    limpiar();
+                }
             }
         });
     }
 
-    private void agregarAuto() {
-        String patente = binding.etPatente.getText().toString();
-        String marca = binding.etMarca.getText().toString();
-        String modelo = binding.etModelo.getText().toString();
-        String precioString = binding.etPrecio.getText().toString();
-
-        if (patente.isEmpty() || marca.isEmpty() || modelo.isEmpty() || precioString.isEmpty()) {
-            Toast.makeText(getActivity(), "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        try {
-            double precio = Double.parseDouble(precioString);
-            cargarViewModel.cargarAuto(patente, marca, modelo, precio);
-
-            binding.etPatente.setText("");
-            binding.etMarca.setText("");
-            binding.etModelo.setText("");
-            binding.etPrecio.setText("");
-
-        } catch (NumberFormatException e) {
-
-            Toast.makeText(getActivity(), "Por favor ingresa un precio válido", Toast.LENGTH_SHORT).show();
-        }
+    private void limpiar() {
+        binding.etPatente.setText("");
+        binding.etMarca.setText("");
+        binding.etModelo.setText("");
+        binding.etPrecio.setText("");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Evitar fugas de memoria
         binding = null;
     }
 }
